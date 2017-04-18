@@ -1,0 +1,54 @@
+package org.zerock.list;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.persistence.DiaryDAO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
+public class ConnectionTest {
+
+	public static Logger logger = Logger.getLogger(ConnectionTest.class);
+	
+	@Inject
+	private DataSource ds;
+	
+	
+	@Inject
+	private DiaryDAO dao;
+	
+	
+	
+	
+	@Test
+	public void Connect(){
+		try {
+			Connection con = ds.getConnection();
+			logger.info(con);
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	@Test
+	public void getListTest(){
+		logger.info(dao.getlist());
+	}
+	
+	
+	
+	
+	
+}
